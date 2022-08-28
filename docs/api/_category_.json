@@ -1,0 +1,8 @@
+{
+  "label": "🔧 API",
+  "position": 6,
+  "link": {
+    "type": "generated-index",
+    "description": "An overview of shared types provided by Yjs."
+  }
+}

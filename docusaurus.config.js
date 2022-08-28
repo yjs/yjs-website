@@ -39,13 +39,6 @@ const config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/'
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/'
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css')
         }
@@ -57,21 +50,30 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Yjs Docs',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Yjs Logo',
           src: 'img/logo.svg'
         },
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'introduction',
             position: 'left',
-            label: 'Tutorial'
+            label: 'Docs'
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/sponsors/dmonad',
+            label: 'Support',
+            position: 'right'
+          },
+          {
+            href: 'https://discuss.yjs.dev',
+            label: 'Forum',
+            position: 'right'
+          },
+          {
+            href: 'https://github.com/yjs/yjs',
             label: 'GitHub',
             position: 'right'
           }
@@ -93,16 +95,12 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus'
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus'
+                label: 'Chat',
+                href: 'https://gitter.im/Yjs/community'
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus'
+                href: 'https://twitter.com/kevin_jahns'
               }
             ]
           },
@@ -110,17 +108,12 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog'
-              },
-              {
                 label: 'GitHub',
                 href: 'https://github.com/facebook/docusaurus'
               }
             ]
           }
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`
+        ]
       },
       prism: {
         theme: lightCodeTheme,

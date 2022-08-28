@@ -1,0 +1,8 @@
+{
+  "label": "🚲 Getting Started",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "A five minute guide to make an editor collaborative."
+  }
+}
