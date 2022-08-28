@@ -8,9 +8,11 @@ Awareness features are an integral part of collaborative applications. In the la
 
 We could share even more awareness information like the mouse position of each user, or a live video recording of each user. But when we share too much information, we distract our users from the task at hand. So it is important to find the right balance, that makes sense for your application.
 
-{% hint style="info" %}
+:::info
+
 Sharing no awareness information at all is also an option. Then skip this chapter, or come back later. 
-{% endhint %}
+
+:::
 
 Awareness information isn't stored in the Yjs document, as it doesn't need to be persisted across sessions. Instead, we use a tiny state-based Awareness CRDT that propagates JSON objects to all users. When you go offline, your own awareness state is automatically deleted and all users are notified that you went offline. While this feature is optional, it is recommended that network providers implement the awareness protocol to make it easier to switch providers. All our network providers implement the Awareness CRDT. 
 

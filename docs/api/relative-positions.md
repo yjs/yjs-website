@@ -8,9 +8,11 @@ When working with collaborative documents, we often need to work with positions.
 
 A _relative position_ is fixated to an element in the shared document and is not affected by remote changes. I.e. given the document `"a|c"`, the relative position is attached to `c`. When a remote user modifies the document by inserting a character before the cursor, the cursor will stay attached to the character `c`. `insert(1, 'x')("a|c") = "ax|c"`. When the _relative position_ is set to the end of the document, it will stay attached to the end of the document.
 
-{% hint style="info" %}
+:::info
+
 Relative positions are guaranteed to always point to the same location ⇒ When all clients sync up, all relative positions will translate to the same index-position. This is not possible in OT-like solutions [(explanation)](https://marijnhaverbeke.nl/blog/collaborative-editing-cm.html).
-{% endhint %}
+
+:::
 
 ## Y.RelativePosition API
 

@@ -6,9 +6,11 @@ sidebar_position: 3
 
 Yjs is permissively licensed \([MIT](https://github.com/yjs/yjs/blob/main/LICENSE)\) and actively maintained since 2015 by [Kevin Jahns](https://github.com/dmonad).
 
-{% hint style="info" %}
+:::info
+
 If you use Yjs in your project, then please do the moral thing and [sponsor further development](https://github.com/sponsors/dmonad) or ask me for a moral license.
-{% endhint %}
+
+:::
 
 This project depends on **you** to finance further development and maintenance of the project. Even small donations can go a long way. 
 

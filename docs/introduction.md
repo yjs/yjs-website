@@ -1,49 +1,94 @@
 ---
 title: Introduction
-description: A five minute guide to make an editor collaborative
+description: >-
+  Modular building blocks for building collaborative applications like Google
+  Docs and Figma.
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+import { ListCategoryItems } from '@site/src/components/ListCategoryItems'
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Yjs is a high-performance
+[CRDT](https://en.wikipedia.org/wiki/Conflict-free\_replicated\_data\_type) for
+building collaborative applications that sync automatically.
 
-## Getting Started
+It exposes its internal CRDT model as _shared data types_ that can be
+manipulated concurrently. Shared types are similar to common data types like
+`Map` and `Array`. They can be manipulated, fire events when changes happen, and
+automatically merge without merge conflicts.
 
-Get started by **creating a new site**.
+## Quick Start
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+This is a working example of how shared types automatically sync. We also have a
+[getting-started guide](getting-started/a-collaborative-editor.md), API
+documentation, and lots of [live demos with source
+code](https://github.com/yjs/yjs-demos).
 
-### What you'll need
+```javascript
+import * as Y from 'yjs'
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+// Yjs documents are collections of
+// shared objects that sync automatically.
+const ydoc = new Y.Doc()
+// Define a shared Y.Map instance
+const ymap = ydoc.getMap()
+ymap.set('keyA', 'valueA')
 
-## Generate a new site
+// Create another Yjs document (simulating a remote user)
+// and create some conflicting changes
+const ydocRemote = new Y.Doc()
+const ymapRemote = ydocRemote.getMap()
+ymapRemote.set('keyB', 'valueB')
 
-Generate a new Docusaurus site using the **classic template**.
+// Merge changes from remote
+const update = Y.encodeStateAsUpdate(ydocRemote)
+Y.applyUpdate(ydoc, update)
 
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
+// Observe that the changes have merged
+console.log(ymap.toJSON()) // => { keyA: 'valueA', keyB: 'valueB' }
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+## Editor Support
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+Yjs supports several popular text and rich-text editors. We are working with
+other projects to enable collaboration-support through Yjs.
 
-## Start your site
+<ListCategoryItems label="Editor Bindings" />
 
-Run the development server:
+## Network Agnostic 📡
 
-```bash
-cd my-website
-npm run start
-```
+Yjs doesn't make any assumptions about the network technology you are using. As
+long as all changes eventually arrive, the documents will sync. The order in
+which document updates are applied doesn't matter.
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+You can [integrate Yjs into your existing communication
+infrastructure](tutorials/creating-a-custom-provider.md), or use one of the
+[several existing network providers](ecosystem/connection-provider/) that allow
+you to jump-start your application backend.
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+Scaling shared editing backends is not trivial. Most shared editing solutions
+depend on a single source of truth - a central server - to perform conflict
+resolution. Yjs doesn't need a central source of truth. This enables you to
+design the backend using ideas from distributed system architecture. In fact,
+Yjs can be scaled indefinitely as it is shown in the [y-redis
+section](tutorials/untitled-3.md).
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+Another interesting application for Yjs as a data model for decentralized and
+[Local-First software](https://www.inkandswitch.com/local-first.html).
+
+## Rich Ecosystem 🔥
+
+Yjs is a modular approach that allows the community to make any editor
+collaborative using any network technology. It has thought-through solutions for
+almost all shared-editing related problems.
+
+We built a rich ecosystem of extensions around Yjs. There are ready-to-use
+editor integrations for many popular (rich-)text editors, adapters to different
+network technologies (like WebRTC, WebSocket, or Hyper), and persistence
+providers that store document updates in a database.
+
+## Unmatched Performance 🚀
+
+Yjs is the fastest CRDT implementation, by far.
+
+{% embed url="https://github.com/dmonad/crdt-benchmarks" %}

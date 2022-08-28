@@ -5,10 +5,11 @@ sidebar_position: 1
 ---
 
 
+:::info
 
-{% hint style="info" %}
 If you know of any resources related to Yjs, please post them to the [discussion board](https://discuss.yjs.dev).
-{% endhint %}
+
+:::
 
 ## September 26, 2020 - Joseph Gentle, CRDTs are the future
 

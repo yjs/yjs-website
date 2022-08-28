@@ -41,9 +41,11 @@ persistence.once('synced', () => { console.log('initial content loaded') })
 
 Another advantage of using y-indexeddb is that it replicates state to every peer that ever visited the document. In case any peer (e.g. the server) loses some data, the other peers will eventually sync the latest document state back to the server.
 
-{% hint style="info" %}
+:::info
+
 y-indexeddb works with any other provider. Again, Yjs providers are meshable. You can use several providers at the same time to achieve maximum reliability.
-{% endhint %}
+
+:::
 
 Database providers also allow native applications to sync document state to a local database. There is a growing collection of providers that work in different environments available in the [ecosystem section](../ecosystem/database-provider/).
 
