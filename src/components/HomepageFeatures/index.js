@@ -4,32 +4,69 @@ import styles from './styles.module.css'
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
+    title: 'Automatic Synchronization',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Yjs implements a highly optimized CRDT that syncs{' '}
+        <strong>shared data types</strong>{' '}
+        automatically with outher peers without merge conflicts.
       </>
     )
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Rich Ecosystem',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        We work together with other projects to provide collaborative features
+        based on Yjs.
       </>
     )
   },
   {
-    title: 'Powered by React',
+    title: 'Network Agnostic',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        You specify how you want to share data with other peers. Yjs syncs over
+        existing networking stacks (e.g.{' '}
+        <a href='https://github.com/YousefED/Matrix-CRDT'>Matrix</a>), over a
+        websocket server, or completely peer-to-peer via WebRTC.
+      </>
+    )
+  },
+  {
+    title: 'Unmatched Performance',
+    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    description: (
+      <>
+        Yjs is the{' '}
+        <a href='https://github.com/dmonad/crdt-benchmarks'>fastest</a>{' '}
+        CRDT implementation, by far.
+      </>
+    )
+  },
+  {
+    title: 'Language Ports',
+    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    description: (
+      <>
+        Yjs can be used in many other programming languages. It is just one of
+        many compatible implementations of the{' '}
+        <a href='https://github.com/y-crdt'>y-crdt</a>.
+      </>
+    )
+  },
+  {
+    title: 'Open Source',
+    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    description: (
+      <>
+        All parts of the Y ecosystem are open source and funded by our awesome
+        community. Support us on{' '}
+        <a href='https://github.com/sponsors/dmonad'>GitHub Sponsors</a> or{' '}
+        <a href='https://opencollective.com/y-collective'>OpenCollective</a>.
       </>
     )
   }
@@ -54,9 +91,7 @@ export default function HomepageFeatures () {
     <section className={styles.features}>
       <div className='container'>
         <div className='row'>
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
+          {FeatureList.map((props, idx) => <Feature key={idx} {...props} />)}
         </div>
       </div>
     </section>
