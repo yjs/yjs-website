@@ -89,6 +89,5 @@ providers that store document updates in a database.
 
 ## Unmatched Performance 🚀
 
-Yjs is the fastest CRDT implementation, by far.
-
-{% embed url="https://github.com/dmonad/crdt-benchmarks" %}
+Yjs is the fastest CRDT implementation, by far. See
+[crdt-benchmarks](https://github.com/dmonad/crdt-benchmarks").
