@@ -20,21 +20,21 @@ function CardContainer ({ href, children }) {
   )
 }
 
-export default ({ href, logo, description, title }) => {
+export default ({ href, image, description, title }) => {
   return (
     <CardContainer href={href}>
       <div className={clsx('avatar')}>
         <div
-          className={clsx('avatar__photo', 'avatar__photo avatar__photo--md')}
+          className={clsx('avatar__photo', 'avatar__photo--md', styles.logo)}
         >
           <img
             alt={title + ' - Logo'}
-            src={logo}
+            src={image}
           />
         </div>
         <div className={clsx('avatar__intro')}>
           <div
-            className={clsx('avatar__name', 'text--truncate', styles.cardTitle)}
+            className={clsx('avatar__name', styles.cardTitle)}
           >
             {title}
           </div>
@@ -42,7 +42,6 @@ export default ({ href, logo, description, title }) => {
             <small
               className={clsx(
                 'avatar__subtitle',
-                'text--truncate',
                 styles.cardDescription
               )}
             >

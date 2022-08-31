@@ -25,3 +25,12 @@
 .cardDescription {
   font-size: 0.8rem;
 }
+
+.logo {
+  border-radius: 8%;
+  width: 4rem;
+}
+
+.logo > img {
+  height: 100%;
+}
