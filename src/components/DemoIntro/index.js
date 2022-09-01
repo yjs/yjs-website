@@ -9,11 +9,13 @@
 import React, { createRef, useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
+import * as env from 'lib0/environment'
 
 import * as Y from 'yjs'
 import * as math from 'lib0/math'
 import { WebsocketProvider } from 'y-websocket'
 import * as random from 'lib0/random.js'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 
 export const usercolors = [
   { color: '#30bced', light: '#30bced33' },
@@ -41,6 +43,9 @@ if (typeof WebSocket !== 'undefined') {
 }
 
 const getUserName = () => {
+  if (!env.isBrowser) {
+    return 'Anonymous'
+  }
   if (localStorage.getItem('username') == null) {
     localStorage.setItem(
       'username',
@@ -115,37 +120,41 @@ export default () => {
   const infoRect = infoRef.current && infoRef.current.getBoundingClientRect()
 
   return (
-    <div
-      className={clsx(styles.intro)}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      ref={infoRef}
-    >
-      <div className={clsx(styles.namePicker)}>
-        Your name:
-        <div className={clsx(styles.colorpicker)} />
-        <input
-          type='text'
-          placeholder='Anonymous'
-          maxLength='25'
-          spellCheck='false'
-          value={userName}
-          onChange={onInputChange}
-        />
-      </div>
-      <div className={clsx(styles.cursors)}>
-        {infoRect && cursors.map((state) => (
-          <div
-            key={state.clientid}
-            style={{
-              transform: `translate(${
-                math.floor(state.introMouse.x * infoRect.width)
-              }px,${math.floor(state.introMouse.y * infoRect.height)}px)`,
-              backgroundColor: state.color
-            }}
-          />
-        ))}
-      </div>
-    </div>
+    <BrowserOnly fallback={<div className={clsx(styles.intro)} />}>
+      {() => (
+        <div
+          className={clsx(styles.intro)}
+          onMouseMove={onMouseMove}
+          onMouseLeave={onMouseLeave}
+          ref={infoRef}
+        >
+          <div className={clsx(styles.namePicker)}>
+            Your name:
+            <div className={clsx(styles.colorpicker)} />
+            <input
+              type='text'
+              placeholder='Anonymous'
+              maxLength='25'
+              spellCheck='false'
+              value={userName}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className={clsx(styles.cursors)}>
+            {infoRect && cursors.map((state) => (
+              <div
+                key={state.clientid}
+                style={{
+                  transform: `translate(${
+                    math.floor(state.introMouse.x * infoRect.width)
+                  }px,${math.floor(state.introMouse.y * infoRect.height)}px)`,
+                  backgroundColor: state.color
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </BrowserOnly>
   )
 }
