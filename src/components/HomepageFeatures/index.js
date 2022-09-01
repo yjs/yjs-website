@@ -63,10 +63,10 @@ const FeatureList = [
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        All parts of the Y ecosystem are open source and funded by our awesome
-        community. Support us on{' '}
-        <a href='https://github.com/sponsors/dmonad'>GitHub Sponsors</a> or{' '}
-        <a href='https://opencollective.com/y-collective'>OpenCollective</a>.
+        The Yjs ecosystem is open-source and funded by our awesome community.
+        Support us on{' '}
+        <a href='https://github.com/sponsors/dmonad'> GitHub Sponsors </a>{' '}
+        or <a href='https://opencollective.com/y-collective'>OpenCollective</a>.
       </>
     )
   }
