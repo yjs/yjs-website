@@ -28,18 +28,17 @@ export const usercolors = [
 
 export const userColor = usercolors[random.uint32() % usercolors.length]
 
-document.documentElement.style.setProperty('--user-color', userColor.color)
-document.documentElement.style.setProperty(
-  '--user-color-light',
-  userColor.light
-)
-
 const ydoc = new Y.Doc()
-const provider = new WebsocketProvider(
-  'wss://demos.yjs.dev',
-  'yjs-website-beta',
-  ydoc
-)
+let provider = null
+let awareness = null
+if (typeof WebSocket !== 'undefined') {
+  provider = new WebsocketProvider(
+    'wss://demos.yjs.dev',
+    'yjs-website-beta',
+    ydoc
+  )
+  awareness = provider.awareness
+}
 
 const getUserName = () => {
   if (localStorage.getItem('username') == null) {
@@ -57,7 +56,7 @@ export default () => {
   const infoRef = useRef(null)
   useEffect(() => {
     const awarenessListener = () => {
-      const cursorStates = Array.from(provider.awareness.getStates().entries())
+      const cursorStates = Array.from(awareness.getStates().entries())
         .filter(([clientid, state]) =>
           clientid !== ydoc.clientID && state.introMouse != null &&
           state.introMouse.x && state.introMouse.y
@@ -69,10 +68,18 @@ export default () => {
           introMouse: state.introMouse
         }))
       setCursors(cursorStates)
+      document.documentElement.style.setProperty(
+        '--user-color',
+        userColor.color
+      )
+      document.documentElement.style.setProperty(
+        '--user-color-light',
+        userColor.light
+      )
     }
-    provider.awareness.on('change', awarenessListener)
+    awareness && awareness.on('change', awarenessListener)
     return () => {
-      provider.awareness.off('change', awarenessListener)
+      awareness && awareness.off('change', awarenessListener)
     }
   })
   const onInputChange = (event) => {
@@ -80,16 +87,18 @@ export default () => {
     localStorage.setItem('username', event.target.value)
   }
 
-  const localState = provider.awareness.getLocalState()
-  if (
-    localState == null || localState.user == null ||
-    localState.user.name !== userName
-  ) {
-    provider.awareness.setLocalStateField('user', {
-      name: userName,
-      color: userColor.color,
-      colorLight: userColor.light
-    })
+  if (awareness) {
+    const localState = awareness.getLocalState()
+    if (
+      localState == null || localState.user == null ||
+      localState.user.name !== userName
+    ) {
+      awareness.setLocalStateField('user', {
+        name: userName,
+        color: userColor.color,
+        colorLight: userColor.light
+      })
+    }
   }
 
   const onMouseMove = (event) => {
@@ -97,10 +106,10 @@ export default () => {
     // compute x relative to infoRect and relative to dimension
     const x = (event.clientX - infoRect.left) / infoRect.width
     const y = (event.clientY - infoRect.top) / infoRect.height
-    provider.awareness.setLocalStateField('introMouse', { x, y })
+    awareness.setLocalStateField('introMouse', { x, y })
   }
   const onMouseLeave = (_event) => {
-    provider.awareness.setLocalStateField('introMouse', null)
+    awareness.setLocalStateField('introMouse', null)
   }
 
   const infoRect = infoRef.current && infoRef.current.getBoundingClientRect()

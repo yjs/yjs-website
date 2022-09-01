@@ -4,6 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import HomepageFeatures from '@site/src/components/HomepageFeatures'
 import DemoIntro from '@site/src/components/DemoIntro'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 
 import styles from './index.module.css'
 
@@ -25,7 +26,9 @@ export default function Home () {
       title={`Hello from ${siteConfig.title}`}
       description='Description will go into a meta tag in <head />'
     >
-      <DemoIntro />
+      <BrowserOnly>
+        {DemoIntro}
+      </BrowserOnly>
       <HomepageHeader />
       <main>
         <HomepageFeatures />

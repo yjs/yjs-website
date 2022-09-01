@@ -41,13 +41,14 @@ const plugin = (_options) => {
           ? node.children[0].value
           : '')
       try {
-        const { image, href, title, description } = await getSocialMetadata(
+        const { image, title, description } = await getSocialMetadata(
           node.url,
           backupTitle
         )
         node.type = 'jsx'
-        node.value =
-          `<SocialLink image="${image}" href="${href}" title="${backupTitle || title}" description="${description}" />`
+        node.value = `<SocialLink image="${image}" href="${node.url}" title="${
+          backupTitle || title
+        }" description="${description}" />`
       } catch {
         console.error(`Issues catching social description of ${node.url}`)
       }

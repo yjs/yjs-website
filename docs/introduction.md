@@ -63,15 +63,16 @@ which document updates are applied doesn't matter.
 
 You can [integrate Yjs into your existing communication
 infrastructure](tutorials/creating-a-custom-provider.md), or use one of the
-[several existing network providers](ecosystem/connection-provider/) that allow
+[several existing network providers](ecosystem/network-provider.md) that allow
 you to jump-start your application backend.
 
 Scaling shared editing backends is not trivial. Most shared editing solutions
 depend on a single source of truth - a central server - to perform conflict
 resolution. Yjs doesn't need a central source of truth. This enables you to
-design the backend using ideas from distributed system architecture. In fact,
-Yjs can be scaled indefinitely as it is shown in the [y-redis
-section](tutorials/untitled-3.md).
+design the backend using ideas from distributed system architecture. Multiple
+backends can serve the same document to your users. And if one of them fails -
+no problem - clients can just fall back to your backup servers. This makes
+scaling your infrastructure much easier.
 
 Another interesting application for Yjs as a data model for decentralized and
 [Local-First software](https://www.inkandswitch.com/local-first.html).

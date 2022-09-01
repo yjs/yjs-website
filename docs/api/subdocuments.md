@@ -4,7 +4,8 @@ description: Embedding Yjs documents into Yjs documents
 sidebar_position: 1
 ---
 
-Yjs documents can be embedded into shared types. This allows you to manage vast amounts of Yjs documents as part of a root document.
+Yjs documents can be embedded into shared types. This allows you to manage vast
+amounts of Yjs documents as part of a root document.
 
 ```javascript
 // Client One
@@ -16,7 +17,9 @@ subDoc.getText().insert(0, 'some initial content')
 folder.set('my-document.txt', subDoc)
 ```
 
-An obvious use-case is to manage documents in a folder structure. Each note could be represented as a subdocument that is lazily loaded to memory when needed. By default, subdocuments are empty until they are explicitly loaded.
+An obvious use-case is to manage documents in a folder structure. Each note
+could be represented as a subdocument that is lazily loaded to memory when
+needed. By default, subdocuments are empty until they are explicitly loaded.
 
 ```javascript
 // Client Two
@@ -43,7 +46,10 @@ subDocText.observe(() => {
 })
 ```
 
-Subdocuments are lazily loaded after they have been explicitly loaded to memory. A subdocument can be destroyed `doc.destroy()` to free all used memory and destroy existing data bindings. The document can be accessed again to force the provider to load the content again.
+Subdocuments are lazily loaded after they have been explicitly loaded to memory.
+A subdocument can be destroyed `doc.destroy()` to free all used memory and
+destroy existing data bindings. The document can be accessed again to force the
+provider to load the content again.
 
 ```javascript
 const subDoc = rootDoc.getMap().get('my-document.text')
@@ -61,7 +67,14 @@ const subDocReloaded = rootDoc.getMap().get('my-document.text')
 subDocReloaded.load()
 ```
 
-It is up to the providers to sync subdocuments. It is possible to create a very efficient sync mechanism using sub-documents. The providers can sync collections of documents in one flush instead of having multiple requests. It is also possible to handle authorization over the folder structure. But all official Yjs providers currently think of sub-documents as separate entities. A new feature that was introduced in Yjs@13.4.0 is that all documents are given a GUID. The documents are identified with GUIDs and used as a room-name to sync documents. This allows you to duplicate data in the document structure.
+It is up to the providers to sync subdocuments. It is possible to create a very
+efficient sync mechanism using sub-documents. The providers can sync collections
+of documents in one flush instead of having multiple requests. It is also
+possible to handle authorization over the folder structure. But all official Yjs
+providers currently think of sub-documents as separate entities. A new feature
+that was introduced in Yjs@13.4.0 is that all documents are given a GUID. The
+documents are identified with GUIDs and used as a room-name to sync documents.
+This allows you to duplicate data in the document structure.
 
 ```javascript
 const rootDoc = new Y.Doc()
@@ -78,9 +91,12 @@ rootDoc.getMap().set('copy.txt', copy)
 // `doc` and `copy` will automatically sync because they have the same guid
 ```
 
-By default, all subdocuments must be explicitly loaded before they are filled with content. It is possible to define `Y.Doc({ autoLoad: true })` to specify that all peers should automatically load the document.
+By default, all subdocuments must be explicitly loaded before they are filled
+with content. It is possible to define `Y.Doc({ autoLoad: true })` to specify
+that all peers should automatically load the document.
 
-Providers listen to `subdocs` events to get notified when subdocuments are added, removed, or loaded.
+Providers listen to `subdocs` events to get notified when subdocuments are
+added, removed, or loaded.
 
 ```typescript
 doc.on('subdocs', ({ added: Set<Y.Doc>, removed: Set<Y.Doc>, loaded: Set<Y.Doc> }) => {
@@ -89,7 +105,10 @@ doc.on('subdocs', ({ added: Set<Y.Doc>, removed: Set<Y.Doc>, loaded: Set<Y.Doc> 
 })
 ```
 
-Providers (e.g. y-websocket, y-indexeddb) are responsible for syncing subdocuments. Not all providers support subdocuments yet. A simple method to implement lazy-loading documents is to create a provider instance to the `doc.guid`-room once a document is loaded:
+Providers (e.g. y-websocket, y-indexeddb) are responsible for syncing
+subdocuments. Not all providers support subdocuments yet. A simple method to
+implement lazy-loading documents is to create a provider instance to the
+`doc.guid`-room once a document is loaded:
 
 ```javascript
 doc.on('subdocs', ({ loaded }) => {
