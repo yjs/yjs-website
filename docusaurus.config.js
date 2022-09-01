@@ -55,7 +55,7 @@ const config = {
         title: 'Yjs Docs',
         logo: {
           alt: 'Yjs Logo',
-          src: 'img/logo.svg'
+          src: 'logo/yjs.png'
         },
         items: [
           {
