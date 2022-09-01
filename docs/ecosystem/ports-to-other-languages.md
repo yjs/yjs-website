@@ -4,30 +4,15 @@ description: Yjs has been ported to other languages.
 sidebar_position: 1
 ---
 
-{% embed url="https://github.com/yjs/ycs" %}
-C# port of Yjs
-{% endembed %}
+[Ycs: C# port](https://github.com/yjs/ycs)
 
-### Work in progress
+[Yrs: Rust port](https://github.com/y-crdt/y-crdt)
 
-{% embed url="https://github.com/y-crdt/y-crdt" %}
-Rust port of Yjs (WIP)
-{% endembed %}
+[Ywasm: Wasm port](https://github.com/y-crdt/y-crdt/tree/main/ywasm)
 
-{% embed url="https://github.com/y-crdt/y-crdt/tree/main/ywasm" %}
-Wasm port of Yjs (WIP)
-{% endembed %}
+[Yffi: C FFI](https://github.com/y-crdt/y-crdt/tree/main/ywasm)
 
-{% embed url="https://github.com/y-crdt/y-crdt/tree/main/ywasm" %}
-C FFI
-{% endembed %}
+[Ypy: Python Port](https://github.com/y-crdt/y-crdt/tree/main/ywasm)
 
-{% embed url="https://github.com/y-crdt/y-crdt/tree/main/ywasm" %}
-Python Port
-{% endembed %}
-
-Ruby port
-
-C#
-
+[Yrb: Ruby port](https://github.com/y-crdt/yrb)
 

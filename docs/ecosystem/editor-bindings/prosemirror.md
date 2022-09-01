@@ -6,7 +6,7 @@ sidebar_position: 1
 
 [ProseMirror](https://prosemirror.net) is a fantastic toolkit to build your own richtext editor. [TipTap](broken-reference), [Remirror](remirror.md), and [Atlaskit ](https://atlaskit.atlassian.com/packages/editor/editor-core/example/full-page)are all based on ProseMirror. The [y-prosemirror](https://github.com/yjs/y-prosemirror/) module exports ProseMirror plugins that make any ProseMirror-based editor collaborative. The module even ensures that the document still conforms to the specified schema. The following demo shows how shared editing, cursors, shared undo/redo, and versions can be implemented using the ProseMirror editor toolkit.
 
-{% embed url="https://github.com/yjs/y-prosemirror/" %}
+[](https://github.com/yjs/y-prosemirror/)
 
 ### Live Demo
 
@@ -18,7 +18,7 @@ sidebar_position: 1
 
 The yjs-demos repository contains multiple demos for the ProseMirror editor. Just clone the directory you are interested in and run `npm install && npm start`.
 
-{% embed url="https://github.com/yjs/yjs-demos" %}
+[](https://github.com/yjs/yjs-demos)
 
 ## Caveats
 
@@ -28,15 +28,14 @@ Features such as comments should either be implemented as document state or usin
 
 A relevant discussion to this topic is found in the ProseMirror discussion board:
 
-{% embed url="https://discuss.prosemirror.net/t/offline-peer-to-peer-collaborative-editing-using-yjs/2488" %}
+[](https://discuss.prosemirror.net/t/offline-peer-to-peer-collaborative-editing-using-yjs/2488)
 
 ## Versions and showing the differences
 
 This is still a bit experimental, but you can create versions (snapshots of the current state of the document) and show the differences between versions. When we allow offline editing, it is important to show to the user the changes that happened while he was away (a diff of changes). The user can then resolve any potential conflicts. A basic example of how versions can be implemented is shown in the [demos repository](https://github.com/yjs/yjs-demos/tree/master/prosemirror-versions).
 
-{% embed url="https://demos.yjs.dev/prosemirror-versions/prosemirror-versions.html" %}
-Source code: https://github.com/yjs/yjs-demos/tree/master/prosemirror-versions
-{% endembed %}
+[Source code:
+https://github.com/yjs/yjs-demos/tree/master/prosemirror-versions](https://demos.yjs.dev/prosemirror-versions/prosemirror-versions.html)
 
 In the basic versions example, we disable garbage collection of deleted content because we want to preserve the deleted strings. This is a problem that is mostly overcome, and you can play with the approach that I implemented on yjs.dev.
 
@@ -44,5 +43,6 @@ In peer-to-peer shared editing, there is no linear history of edits. I suggest t
 
 The yjs.dev website has a ProseMirror example that shows that versions work even with a lot of collaborators. The document has been online since February 2020 and still doesn't slow down. Only content that is relevant to the local version history is preserved.
 
-{% embed url="https://yjs.dev/" %}
+[](https://yjs.dev/)
+
 

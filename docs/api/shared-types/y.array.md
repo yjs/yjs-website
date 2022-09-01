@@ -118,7 +118,5 @@ console.log(yarray.toArray()) // => [1, 'a']
 
 See [Y.Event](../y.event.md) API. The API is inherited from Y.Event.I'm still in the process of moving the documentation to this place. For now, you can find the API docs in the README:
 
-{% embed url="https://github.com/yjs/yjs#API" %}
-API DOCS
-{% endembed %}
+[Yjs / API DOCS](https://github.com/yjs/yjs#API)
 

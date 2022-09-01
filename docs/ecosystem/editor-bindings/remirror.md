@@ -8,7 +8,7 @@ sidebar_position: 1
 
 You can try out collaboration live on their website by enabling the "YjsExtension" and duplicating the same window.
 
-{% embed url="https://remirror.io/playground/" %}
+[](https://remirror.io/playground/)
 
 
 

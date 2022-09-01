@@ -57,17 +57,5 @@ A [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service\_Wor
 
 This resource is a great starting point to build your own service worker:
 
-{% embed url="https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/core-concepts/05" %}
-
-
-
-
-
-
-
-
-
-
-
-
+[](https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/core-concepts/05)
 

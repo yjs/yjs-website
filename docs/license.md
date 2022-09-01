@@ -16,7 +16,5 @@ This project depends on **you** to finance further development and maintenance o
 
 I offer premium support for people and companies that sponsor me through contracting or [GitHub Sponsors](https://github.com/sponsors/dmonad). If you use Yjs in your company, convince your employer that you need premium support. I will be available for regular video calls,  give feedback, and notify you whenever significant changes come up.
 
-{% embed url="https://github.com/sponsors/dmonad" %}
-
-
+[](https://github.com/sponsors/dmonad)
 
