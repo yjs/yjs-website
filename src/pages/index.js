@@ -4,6 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import HomepageFeatures from '../components/HomepageFeatures'
 import DemoIntro from '../components/DemoIntro'
+import EditorCodemirror from '../components/EditorCodemirror'
 
 import styles from './index.module.css'
 
@@ -29,6 +30,9 @@ export default function Home () {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <div>
+          <EditorCodemirror />
+        </div>
       </main>
     </Layout>
   )
