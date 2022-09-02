@@ -30,9 +30,16 @@ export default function Home () {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
-        <div>
-          <EditorCodemirror />
-        </div>
+        <section>
+          <div className={clsx('card', 'container', 'padding--md', 'margin-vert--lg', styles.Cm6Demo)}>
+            <div className={clsx('card__header')}>
+              <h3>CodeMirror editor demo</h3>
+            </div>
+            <div className={clsx('card__body')}>
+              <EditorCodemirror height='35vh' />
+            </div>
+          </div>
+        </section>
       </main>
     </Layout>
   )

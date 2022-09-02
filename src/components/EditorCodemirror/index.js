@@ -12,9 +12,7 @@ import clsx from 'clsx'
 import * as env from 'lib0/environment'
 
 import * as Y from 'yjs'
-import * as math from 'lib0/math'
 import { WebsocketProvider } from 'y-websocket'
-import BrowserOnly from '@docusaurus/BrowserOnly'
 
 import { yCollab, yUndoManagerKeymap } from 'y-codemirror.next'
 
@@ -70,7 +68,7 @@ if (env.isBrowser) {
   })
 }
 
-export default () => {
+export default ({ height = '100%' }) => {
   const ref = useRef(null)
   useEffect(() => {
     console.log(env.isBrowser)
@@ -102,6 +100,10 @@ export default () => {
   })
 
   return (
-    <div className={clsx(styles.container)} ref={ref} />
+    <div
+      className={clsx(styles.editorContainer)}
+      ref={ref}
+      style={{ height }}
+    />
   )
 }
