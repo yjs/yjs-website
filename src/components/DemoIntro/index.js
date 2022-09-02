@@ -30,18 +30,6 @@ export const usercolors = [
 
 export const userColor = usercolors[random.uint32() % usercolors.length]
 
-const ydoc = new Y.Doc()
-let provider = null
-let awareness = null
-if (typeof WebSocket !== 'undefined') {
-  provider = new WebsocketProvider(
-    'wss://demos.yjs.dev',
-    'yjs-website-beta',
-    ydoc
-  )
-  awareness = provider.awareness
-}
-
 const getUserName = () => {
   if (!env.isBrowser) {
     return 'Anonymous'
@@ -53,6 +41,23 @@ const getUserName = () => {
     )
   }
   return localStorage.getItem('username') || 'Anonymous'
+}
+
+const ydoc = new Y.Doc()
+let provider = null
+let awareness = null
+if (env.isBrowser) {
+  provider = new WebsocketProvider(
+    'wss://demos.yjs.dev',
+    'yjs-website-beta',
+    ydoc
+  )
+  awareness = provider.awareness
+  awareness.setLocalStateField('user', {
+    name: getUserName(),
+    color: userColor.color,
+    colorLight: userColor.light
+  })
 }
 
 export default () => {
