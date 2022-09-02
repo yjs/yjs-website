@@ -6,7 +6,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React, { createRef, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
 import * as env from 'lib0/environment'
@@ -60,9 +60,23 @@ if (env.isBrowser) {
   })
 }
 
+/**
+ * @typedef {Object} CursorState
+ * @property {number} clientid
+ * @property {string} name
+ * @property {string} color
+ * @property {string} colorLight
+ * @property {{x:number,y:number}} introMouse
+ */
+
 export default () => {
   const [userName, setUserName] = useState(getUserName())
-  const [cursors, setCursors] = useState([])
+  const [cursors, setCursors] = useState(
+    /** @type {Array<CursorState>} */ ([])
+  )
+  /**
+   * @type {React.MutableRefObject<HTMLDivElement|null>}
+   */
   const infoRef = useRef(null)
   useEffect(() => {
     const awarenessListener = () => {
@@ -92,6 +106,10 @@ export default () => {
       awareness && awareness.off('change', awarenessListener)
     }
   })
+
+  /**
+   * @type {React.ChangeEventHandler<any>}
+   */
   const onInputChange = (event) => {
     setUserName(event.target.value)
     localStorage.setItem('username', event.target.value)
@@ -111,13 +129,20 @@ export default () => {
     }
   }
 
+  /**
+   * @type {React.MouseEventHandler<HTMLDivElement>}
+   */
   const onMouseMove = (event) => {
-    const infoRect = event.target.getBoundingClientRect()
+    const infoRect = /** @type {HTMLDivElement} */ (event.target).getBoundingClientRect()
     // compute x relative to infoRect and relative to dimension
     const x = (event.clientX - infoRect.left) / infoRect.width
     const y = (event.clientY - infoRect.top) / infoRect.height
     awareness.setLocalStateField('introMouse', { x, y })
   }
+
+  /**
+   * @type {React.MouseEventHandler<HTMLDivElement>}
+   */
   const onMouseLeave = (_event) => {
     awareness.setLocalStateField('introMouse', null)
   }
@@ -139,7 +164,7 @@ export default () => {
             <input
               type='text'
               placeholder='Anonymous'
-              maxLength='25'
+              maxLength={25}
               spellCheck='false'
               value={userName}
               onChange={onInputChange}

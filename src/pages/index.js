@@ -2,8 +2,8 @@ import React from 'react'
 import clsx from 'clsx'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
-import HomepageFeatures from '@site/src/components/HomepageFeatures'
-import DemoIntro from '@site/src/components/DemoIntro'
+import HomepageFeatures from '../components/HomepageFeatures'
+import DemoIntro from '../components/DemoIntro'
 
 import styles from './index.module.css'
 

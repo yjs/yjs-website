@@ -1,7 +1,9 @@
 import React from 'react'
+
 import {
   findSidebarCategory,
   useDocsSidebar
+  // @ts-ignore
 } from '@docusaurus/theme-common/internal'
 import DocCardList from '@theme/DocCardList'
 
@@ -27,7 +29,7 @@ export const useSidebarCategory = (label) => {
 }
 
 /**
- * @param {string} label
+ * @param {{label: string}} opts
  */
 export const ListCategoryItems = ({ label }) => (
   <DocCardList items={useSidebarCategory(label).items} />

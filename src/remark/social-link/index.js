@@ -2,11 +2,20 @@ const visit = require('unist-util-visit')
 const axios = require('axios').default
 const { parse } = require('node-html-parser')
 
+/**
+ * @param {string} href
+ * @param {string | null} [backupTitle]
+ */
 const getSocialMetadata = async (href, backupTitle = null) => {
   const res = await axios.get(href)
   const root = parse(res.data)
+  const head = /** @type {typeof root} */ (root.querySelector('head'))
+  /**
+   * @param {string} name
+   * @param {string|null} [fallback]
+   */
   const querySocialData = (name, fallback = null) => {
-    const n = root.querySelector(`head meta[property="${name}"]`)
+    const n = head.querySelector(`meta[property="${name}"]`)
     return (n && n.getAttribute('content')) || fallback
   }
   const image = querySocialData('og:image') // @todo add fallback image
@@ -27,11 +36,17 @@ const getSocialMetadata = async (href, backupTitle = null) => {
   }
 }
 
+/**
+ * @param {any} _options
+ */
 const plugin = (_options) => {
+  /**
+   * @param {import('unist').Node} ast
+   */
   const transformer = async (ast) => {
     const options = []
     visit(ast, 'link', (node, _index, parent) => {
-      if (parent.children.length === 1) {
+      if (parent == null || parent.children.length === 1) {
         options.push(node)
       }
     })
