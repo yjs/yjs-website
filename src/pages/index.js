@@ -5,6 +5,7 @@ import Layout from '@theme/Layout'
 import HomepageFeatures from '../components/HomepageFeatures'
 import DemoIntro from '../components/DemoIntro'
 import EditorCodemirror from '../components/EditorCodemirror'
+import * as YContext from '../components/YContext'
 
 import styles from './index.module.css'
 
@@ -26,12 +27,24 @@ export default function Home () {
       title={`Hello from ${siteConfig.title}`}
       description='Description will go into a meta tag in <head />'
     >
-      <DemoIntro />
+      <YContext.Provider room='home'>
+        <YContext.Consumer>
+          {(ystate) => <DemoIntro awareness={/** @type {any} */ (ystate).awareness} />}
+        </YContext.Consumer>
+      </YContext.Provider>
       <HomepageHeader />
       <main>
         <HomepageFeatures />
         <section>
-          <div className={clsx('card', 'container', 'padding--md', 'margin-vert--lg', styles.Cm6Demo)}>
+          <div
+            className={clsx(
+              'card',
+              'container',
+              'padding--md',
+              'margin-vert--lg',
+              styles.Cm6Demo
+            )}
+          >
             <div className={clsx('card__header')}>
               <h3>CodeMirror editor demo</h3>
             </div>

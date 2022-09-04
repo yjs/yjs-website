@@ -71,7 +71,6 @@ if (env.isBrowser) {
 export default ({ height = '100%' }) => {
   const ref = useRef(null)
   useEffect(() => {
-    console.log(env.isBrowser)
     if (!env.isBrowser) {
       return
     }
@@ -93,7 +92,6 @@ export default ({ height = '100%' }) => {
       state,
       parent: /** @type {any} */ (ref.current)
     })
-    console.log(view, ref)
     return () => {
       view.destroy()
     }

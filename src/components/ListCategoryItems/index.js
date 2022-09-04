@@ -15,7 +15,6 @@ export const useSidebarCategory = (label) => {
   if (!sidebar) {
     throw new Error('Unexpected: cant find current sidebar in context')
   }
-  console.log({ label, sidebar })
   const category = findSidebarCategory(
     sidebar.items,
     (item) => item.label === label
