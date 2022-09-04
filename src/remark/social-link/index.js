@@ -44,13 +44,16 @@ const plugin = (_options) => {
    * @param {import('unist').Node} ast
    */
   const transformer = async (ast) => {
+    /**
+     * @type {Array<{node: any, overwrite: any | null }>}
+     */
     const options = []
     visit(ast, 'link', (node, _index, parent) => {
       if (parent == null || parent.children.length === 1) {
-        options.push(node)
+        options.push({ node, overwrite: parent || node})
       }
     })
-    await Promise.all(options.map(async (node) => {
+    await Promise.all(options.map(async ({ node, overwrite}) => {
       const backupTitle = node.title ||
         (node.children.length === 1 && node.children[0].type === 'text'
           ? node.children[0].value
@@ -60,8 +63,8 @@ const plugin = (_options) => {
           node.url,
           backupTitle
         )
-        node.type = 'jsx'
-        node.value = `<SocialLink image="${image}" href="${node.url}" title="${
+        overwrite.type = 'jsx'
+        overwrite.value = `<SocialLink image="${image}" href="${node.url}" title="${
           backupTitle || title
         }" description="${description}" />`
       } catch {
