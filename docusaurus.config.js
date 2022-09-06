@@ -37,8 +37,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/yjs/yjs-website/tree/main/pages/',
+          editUrl: 'https://github.com/yjs/yjs-website/tree/main/pages/',
           remarkPlugins: [socialLink]
         },
         theme: {
@@ -47,6 +46,8 @@ const config = {
       })
     ]
   ],
+
+  themes: ['@docusaurus/theme-live-codeblock'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

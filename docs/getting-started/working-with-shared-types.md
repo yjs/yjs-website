@@ -70,6 +70,14 @@ subArray.insert(0, ['this works']) // => All deep events: [..]
 yarray.insert(0, [subArray]) // Throws exception!
 ```
 
+```javascript live
+() => {
+  const ydoc = new Y.Doc()
+  const ytext = ydoc.getText()
+  return ydoc.toJSON()
+}
+```
+
 The other data types work similarly to Y.Array. The complete documentation is
 available in the shared types section that covers each type and the event format
 in detail.
