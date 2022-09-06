@@ -51,13 +51,6 @@ export default ({ awareness }) => {
           introMouse: state.introMouse
         }))
       setCursors(cursorStates)
-      const localState = awareness.getLocalState()
-      if (
-        localState != null && localState.user != null &&
-        localState.user.name !== userName
-      ) {
-        setUserName(localState.user.name)
-      }
     }
     awareness && awareness.on('change', awarenessListener)
     return () => {
@@ -70,6 +63,18 @@ export default ({ awareness }) => {
    */
   const onInputChange = (event) => {
     localStorage.setItem('username', event.target.value)
+    setUserName(event.target.value)
+    const localAwState = awareness.getLocalState()
+    if (
+      localAwState && localAwState.user && localAwState.user.color &&
+      localAwState.user.colorLight
+    ) {
+      awareness.setLocalStateField('user', {
+        name: event.target.value || 'Anonymous',
+        color: localAwState.user.color,
+        colorLight: localAwState.user.colorLight
+      })
+    }
   }
 
   /**

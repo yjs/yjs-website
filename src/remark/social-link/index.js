@@ -50,10 +50,10 @@ const plugin = (_options) => {
     const options = []
     visit(ast, 'link', (node, _index, parent) => {
       if (parent == null || parent.children.length === 1) {
-        options.push({ node, overwrite: parent || node})
+        options.push({ node, overwrite: parent || node })
       }
     })
-    await Promise.all(options.map(async ({ node, overwrite}) => {
+    await Promise.all(options.map(async ({ node, overwrite }) => {
       const backupTitle = node.title ||
         (node.children.length === 1 && node.children[0].type === 'text'
           ? node.children[0].value
@@ -64,9 +64,10 @@ const plugin = (_options) => {
           backupTitle
         )
         overwrite.type = 'jsx'
-        overwrite.value = `<SocialLink image="${image}" href="${node.url}" title="${
-          backupTitle || title
-        }" description="${description}" />`
+        overwrite.value =
+          `<SocialLink image="${image}" href="${node.url}" title="${
+            backupTitle || title
+          }" description="${description}" />`
       } catch {
         console.error(`Issues catching social description of ${node.url}`)
       }

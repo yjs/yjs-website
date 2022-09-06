@@ -8,6 +8,7 @@ import EditorCodemirror from '../components/EditorCodemirror'
 import * as YContext from '../components/YContext'
 
 import styles from './index.module.css'
+import AwarenessUserList from '../components/AwarenessUserList'
 
 function HomepageHeader () {
   const { siteConfig } = useDocusaurusContext()
@@ -28,9 +29,14 @@ export default function Home () {
       description='Description will go into a meta tag in <head />'
     >
       <YContext.Provider room='home'>
-        <YContext.Consumer>
-          {(ystate) => <DemoIntro awareness={/** @type {any} */ (ystate).awareness} />}
-        </YContext.Consumer>
+        <section style={{ position: 'relative' }}>
+          <YContext.YStateConsumer>
+            {(ystate) => (
+              <DemoIntro awareness={/** @type {any} */ (ystate).awareness} />
+            )}
+          </YContext.YStateConsumer>
+          <AwarenessUserList />
+        </section>
       </YContext.Provider>
       <HomepageHeader />
       <main>

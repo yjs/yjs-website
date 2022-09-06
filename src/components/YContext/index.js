@@ -6,7 +6,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
 import * as env from 'lib0/environment'
@@ -46,6 +46,7 @@ const initYState = (room) => {
     ? new WebsocketProvider('wss://demos.yjs.dev', room, ydoc, { awareness })
     : null
   const updateAwarenessFromLocalstorage = () => {
+    console.log('updating from local storage')
     const localstorageUsername = localStorage.getItem('username')
     const awarenessState = awareness.getLocalState()
     if (
@@ -125,4 +126,44 @@ export class Provider extends React.Component {
   }
 }
 
-export const Consumer = YContext.Consumer
+export const YStateConsumer = YContext.Consumer
+
+/**
+ * @typedef {Object} AWState
+ * @property {number} clientID
+ * @property {{ user: { name: string, color: string, colorLight: string } }} state
+ * @property {boolean} isLocal
+ */
+
+/**
+ * @param {Awareness} awareness
+ * @return {Array<AWState>}
+ */
+const computeAwarenessState = (awareness) =>
+  Array.from(awareness.getStates().entries()).filter(([_clientID, state]) =>
+    state && state.user && state.user.name && state.user.color &&
+    state.user.colorLight
+  ).map(/** @type {function(any,any):AWState} */ ([clientID, state]) => ({
+    clientID,
+    state,
+    isLocal: awareness.clientID === clientID
+  }))
+
+/**
+ * @template {AWState} P
+ * @param {{children:function(Array<P | Object>):React.ReactElement}} props
+ */
+export const YAwarenessStateConsumer = ({ children }) => {
+  const { awareness } = /** @type {YState} */ (useContext(YContext))
+  const [aw, setAwarenessState] = useState(computeAwarenessState(awareness))
+  useEffect(() => {
+    const awarenessListener = () =>
+      setAwarenessState(computeAwarenessState(awareness))
+    awareness.on('change', awarenessListener)
+    return () => {
+      awareness.off('change', awarenessListener)
+    }
+  })
+  // @todo check whether children are recreated on every render
+  return children(aw)
+}

@@ -1,0 +1,74 @@
+
+.userlist {
+  padding-top: 1.2rem;
+  padding-right: var(--scrollbar-width);
+  padding-bottom: var(--scrollbar-width);
+  position: absolute;
+  top: 0;
+  right: -20px;
+  bottom: -20px;
+  width: var(--userlist-width);
+  overflow-wrap: break-word;
+  font-size: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: visible;
+  /* @todo this should be added on a top-level */
+  --userlist-width: 15rem;
+  --scrollbar-width: 17px;
+}
+
+.userlist > div {
+  padding: .3rem 40px .3rem .3rem;
+  border-left-style: solid;
+  border-left-width: .35rem;
+  margin: .1rem 0;
+  width: calc(100% + 40px);
+  transition: transform .5s;
+  transform: translateX(0rem);
+  box-sizing: border-box;
+}
+
+.userlist > div[y-islocaluser="true"] {
+  font-weight: bold;
+}
+
+/* show userlist if scrolled up all the way to the top */
+.userlist[show] > div {
+  transform: translateX(0);
+  transition: scale .5s, transform .5s;
+}
+
+.userlist[show] > div:nth-child(1) {
+  transition-delay: .3s;
+}
+
+.userlist[show] > div:nth-child(2) {
+  transition-delay: .4s;
+}
+
+.userlist[show] > div:nth-child(3) {
+  transition-delay: .5s;
+}
+
+.userlist[show] > div:nth-child(4) {
+  transition-delay: .55s;
+}
+
+.userlist[show] > div:nth-child(5) {
+  transition-delay: .6s;
+}
+
+.userlist[show] > div:nth-child(6) {
+  transition-delay: .65s;
+}
+
+.userlist[show] > div:nth-child(7) {
+  transition-delay: .7s;
+}
+
+.userlist[show] > div:nth-child(n + 7) {
+  transition-delay: .725s;
+}
+
