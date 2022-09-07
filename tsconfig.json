@@ -1,13 +1,15 @@
 {
   "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
+    "target": "ESNext",
     "allowJs": true,
     "checkJs": true,
     "noEmit": true,
     "strict": true,
     "noImplicitAny": false,
     "strictNullChecks": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "moduleResolution": "node"
   },
   "include": ["src/**/*"]
 }

@@ -4,6 +4,8 @@ description: Working With Shared Types
 sidebar_position: 4
 ---
 
+<LiveCode code={'const x = 4;\nconsole.log(x); x'} />
+
 By now, we have learned how to make an editor collaborative and how to sync
 document updates using different providers. But we haven't covered the most
 unique feature of Yjs yet: Shared Types.
@@ -68,14 +70,6 @@ yarray.observeDeep(events => { console.log('All deep events: ', events) })
 subArray.insert(0, ['this works']) // => All deep events: [..]
 // You can't insert the array at another place. A shared type can only exist in one place.
 yarray.insert(0, [subArray]) // Throws exception!
-```
-
-```javascript live
-() => {
-  const ydoc = new Y.Doc()
-  const ytext = ydoc.getText()
-  return ydoc.toJSON()
-}
 ```
 
 The other data types work similarly to Y.Array. The complete documentation is
