@@ -24,7 +24,9 @@ import evalCode from './eval.js'
 
 export default ({ code }) => {
   const ref = useRef(null)
-  const [errorMessage, setErrorMessage] = useState(/** @type {null|string} */ (null))
+  const [errorMessage, setErrorMessage] = useState(
+    /** @type {null|string} */ (null)
+  )
   useEffect(() => {
     if (!env.isBrowser) {
       return
@@ -112,18 +114,101 @@ class ExpressionAnnotation extends WidgetType {
 }
 
 /**
+ * @param {EditorView} view
+ * @param {any} setErrorMessage
+ */
+const computeDecorations = (view, setErrorMessage) => {
+  const code = view.state.doc.toJSON().join('\n')
+  try {
+    const ast = parse(code, { ecmaVersion: 'latest' })
+    /**
+     * @type {Array<{ pos: number, insert: string }>}
+     */
+    const changes = []
+    simple(ast, {
+      /**
+       * @param {any} node
+       */
+      ExpressionStatement (node) {
+        const expression = node.expression
+        changes.push({
+          pos: expression.start,
+          insert: '__liveCodeEdit('
+        })
+        changes.push({
+          pos: expression.end,
+          insert: `,${node.end})`
+        })
+      }
+    })
+    changes.sort((a, b) => a.pos - b.pos)
+    const res = []
+    for (let currPos = 0, i = 0; i < changes.length; i++) {
+      const change = changes[i]
+      if (change.pos !== currPos) {
+        res.push(code.slice(currPos, change.pos))
+      }
+      res.push(change.insert)
+      currPos = change.pos
+    }
+    const transformedCode = res.join('')
+
+    try {
+      const annotations = evalCode(transformedCode)
+      const decorations = []
+
+      for (const line in annotations) {
+        const lineNumber = Number.parseInt(line)
+        const executionResult = annotations[line]
+        if (executionResult !== undefined) {
+          decorations.push({
+            from: lineNumber,
+            to: lineNumber,
+            value: Decoration.widget({
+              side: 1,
+              block: false,
+              widget: new ExpressionAnnotation(executionResult + '')
+            })
+          })
+        }
+      }
+
+      setErrorMessage(null)
+      return Decoration.set(decorations, true)
+    } catch (/** @type {any} */ error) {
+      setErrorMessage(error.toString())
+      return Decoration.set([], true)
+    }
+  } catch (/** @type {any} */ error) {
+    setErrorMessage(null)
+    const line = view.state.doc.line(error.loc.line)
+    return Decoration.set([
+      {
+        from: line.to,
+        to: line.to,
+        value: Decoration.widget({
+          side: 1,
+          block: false,
+          widget: new ExpressionAnnotation(error.message + '', 'error')
+        })
+      }
+    ], true)
+  }
+}
+
+/**
  * @param {function(string|null):void} setErrorMessage
  */
 export const liveCodePlugin = (setErrorMessage) => {
   class LiveCodePluginValue {
     /**
-     * @param {EditorView} _view
+     * @param {EditorView} view
      */
-    constructor (_view) {
+    constructor (view) {
       /**
        * @type {import('@codemirror/view').DecorationSet}
        */
-      this.decorations = RangeSet.of([])
+      this.decorations = computeDecorations(view, setErrorMessage)
     }
 
     destroy () {
@@ -135,82 +220,6 @@ export const liveCodePlugin = (setErrorMessage) => {
     update (update) {
       if (update.docChanged) {
         this.decorations = RangeSet.of([])
-        console.log(update)
-        const code = update.view.state.doc.toJSON().join('\n')
-        try {
-          const ast = parse(code, { ecmaVersion: 'latest' })
-          /**
-           * @type {Array<{ pos: number, insert: string }>}
-           */
-          const changes = []
-          simple(ast, {
-            /**
-             * @param {any} node
-             */
-            ExpressionStatement (node) {
-              const expression = node.expression
-              changes.push({
-                pos: expression.start,
-                insert: '__liveCodeEdit('
-              })
-              changes.push({
-                pos: expression.end,
-                insert: `,${node.end})`
-              })
-            }
-          })
-          changes.sort((a, b) => a.pos - b.pos)
-          const res = []
-          for (let currPos = 0, i = 0; i < changes.length; i++) {
-            const change = changes[i]
-            if (change.pos !== currPos) {
-              res.push(code.slice(currPos, change.pos))
-            }
-            res.push(change.insert)
-            currPos = change.pos
-          }
-          const transformedCode = res.join('')
-
-          try {
-            const annotations = evalCode(transformedCode)
-            const decorations = []
-
-            for (const line in annotations) {
-              const lineNumber = Number.parseInt(line)
-              const executionResult = annotations[line]
-              if (executionResult !== undefined) {
-                decorations.push({
-                  from: lineNumber,
-                  to: lineNumber,
-                  value: Decoration.widget({
-                    side: 1,
-                    block: false,
-                    widget: new ExpressionAnnotation(executionResult + '')
-                  })
-                })
-              }
-            }
-
-            this.decorations = Decoration.set(decorations, true)
-            setErrorMessage(null)
-          } catch (/** @type {any} */ error) {
-            setErrorMessage(error.toString())
-          }
-        } catch (/** @type {any} */ error) {
-          setErrorMessage(null)
-          const line = update.view.state.doc.line(error.loc.line)
-          this.decorations = Decoration.set([
-            {
-              from: line.to,
-              to: line.to,
-              value: Decoration.widget({
-                side: 1,
-                block: false,
-                widget: new ExpressionAnnotation(error.message + '', 'error')
-              })
-            }
-          ], true)
-        }
       }
     }
   }
