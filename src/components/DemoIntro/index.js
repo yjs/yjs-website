@@ -10,6 +10,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
 import * as math from 'lib0/math'
+import * as env from 'lib0/environment'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 
 /**
@@ -26,7 +27,7 @@ import BrowserOnly from '@docusaurus/BrowserOnly'
  */
 export default ({ awareness }) => {
   const [userName, setUserName] = useState(
-    localStorage.getItem('username') || 'Anonymous'
+    (env.isBrowser && localStorage.getItem('username')) || 'Anonymous'
   )
   const [cursors, setCursors] = useState(
     /** @type {Array<CursorState>} */ ([])

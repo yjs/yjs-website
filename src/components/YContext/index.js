@@ -63,12 +63,14 @@ const initYState = (room) => {
       })
     }
   }
-  updateAwarenessFromLocalstorage()
-  addEventListener('storage', updateAwarenessFromLocalstorage)
+  if (env.isBrowser) {
+    updateAwarenessFromLocalstorage()
+    addEventListener('storage', updateAwarenessFromLocalstorage)
 
-  ydoc.on('destroy', () => {
-    removeEventListener('storage', updateAwarenessFromLocalstorage)
-  })
+    ydoc.on('destroy', () => {
+      removeEventListener('storage', updateAwarenessFromLocalstorage)
+    })
+  }
 
   return {
     room,
