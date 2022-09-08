@@ -16,7 +16,7 @@ import { javascript } from '@codemirror/lang-javascript'
 import { parse } from 'acorn'
 import { simple } from 'acorn-walk'
 
-import { EditorState, RangeSet } from '@codemirror/state'
+import { EditorState } from '@codemirror/state'
 import { Decoration, ViewPlugin, WidgetType } from '@codemirror/view'
 import * as dom from 'lib0/dom'
 import * as pair from 'lib0/pair'
@@ -26,6 +26,9 @@ export default ({ code }) => {
   const ref = useRef(null)
   const [errorMessage, setErrorMessage] = useState(
     /** @type {null|string} */ (null)
+  )
+  const [editorView, setEditor] = useState(
+    /** @type {EditorView | null} */ (null)
   )
   useEffect(() => {
     if (!env.isBrowser) {
@@ -45,18 +48,43 @@ export default ({ code }) => {
       state,
       parent: /** @type {any} */ (ref.current)
     })
+    setEditor(view)
     return () => {
       view.destroy()
     }
   }, [ref])
 
+  const resetState = () => {
+    if (editorView) {
+      editorView.dispatch({
+        changes: [{
+          from: 0,
+          to: editorView.state.doc.length,
+          insert: code
+        }]
+      })
+    }
+  }
+
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div>Live Code Editor</div>
+        <button
+          onClick={resetState}
+          className={clsx('button', 'button--sm', 'button--secondary')}
+        >
+          Reset
+        </button>
+      </div>
       <div
         className={clsx(styles.editorContainer)}
         ref={ref}
       />
-      {errorMessage && <pre style={{ color: 'red' }}>{errorMessage}</pre>}
+      {errorMessage &&
+        <pre className={clsx(styles.footer)}>
+          {errorMessage || ''}
+        </pre>}
     </div>
   )
 }
@@ -76,13 +104,13 @@ class ExpressionAnnotation extends WidgetType {
     if (this.type === 'eval') {
       return /** @type {HTMLElement} */ (dom.element('span', [
         pair.create('class', 'executionResult'),
-        pair.create('style', 'color:grey;')
-      ], [dom.text(` => ${this.result} `)]))
+        pair.create('style', 'color:grey;user-select:none;')
+      ], [dom.text(` => ${this.result}`)]))
     } else {
       return /** @type {HTMLElement} */ (dom.element('span', [
         pair.create('class', 'executionError'),
-        pair.create('style', 'color:red;')
-      ], [dom.text(` => ${this.result} `)]))
+        pair.create('style', 'color:red;user-select:none;')
+      ], [dom.text(` => ${this.result}`)]))
     }
   }
 
@@ -219,7 +247,7 @@ export const liveCodePlugin = (setErrorMessage) => {
      */
     update (update) {
       if (update.docChanged) {
-        this.decorations = RangeSet.of([])
+        this.decorations = computeDecorations(update.view, setErrorMessage)
       }
     }
   }

@@ -1,7 +1,9 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+// @ts-ignore note
 const lightCodeTheme = require('prism-react-renderer/themes/github')
+// @ts-ignore
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 const socialLink = require('./src/remark/social-link')
 const liveCode = require('./src/remark/live-code')
@@ -48,7 +50,7 @@ const config = {
     ]
   ],
 
-  themes: ['@docusaurus/theme-live-codeblock'],
+  themes: [],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

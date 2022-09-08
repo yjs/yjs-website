@@ -63,6 +63,7 @@ export default (__code) => {
   const console = _fakeConsole;
   // eslint-disable-next-line
   const Y = _Y;
+  // eslint-disable-next-line
   eval(__code)
   return __liveCodeEditResults
 }

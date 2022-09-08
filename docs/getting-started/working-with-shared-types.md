@@ -4,16 +4,10 @@ description: Working With Shared Types
 sidebar_position: 4
 ---
 
-
 ```javascript live
 const ydoc = new Y.Doc()
-ydoc
-const zz = "42"
-zz
-
+ydoc.getText()
 ```
-
-<LiveCode code={'const x = 4;\nconsole.log(x); x'} />
 
 By now, we have learned how to make an editor collaborative and how to sync
 document updates using different providers. But we haven't covered the most
