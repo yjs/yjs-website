@@ -31,15 +31,12 @@ export default ({ code }) => {
     /** @type {EditorView | null} */ (null)
   )
   useEffect(() => {
-    if (!env.isBrowser) {
-      return
-    }
     const state = EditorState.create({
       doc: code,
       extensions: [
         basicSetup,
         javascript(),
-        EditorView.lineWrapping,
+        // EditorView.lineWrapping,
         liveCodePlugin(setErrorMessage)
         // oneDark
       ]

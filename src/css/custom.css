@@ -15,6 +15,9 @@
   --ifm-color-primary-lightest: #ec523f;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-container-width: 1200px !important;
+  --ifm-container-width-xl: 1200px !important;
+  --ifm-navbar-sidebar-width: 400px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -28,3 +31,53 @@
   --ifm-color-primary-lightest: #ffdea2;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+.theme-doc-sidebar-container {
+  /* --doc-sidebar-width: 400px; */
+  border-right: none !important;
+}
+
+.theme-doc-sidebar-container .menu {
+  padding: 1rem;
+  padding-top: 5rem;
+}
+
+.theme-doc-toc-desktop {
+  padding-top: 4rem;
+}
+
+.main-wrapper {
+  margin: 0 auto;
+}
+
+@media screen and (min-height: 1500px) {
+  .main-wrapper {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .theme-doc-sidebar-container {
+    margin-right: 2rem;
+  }
+}
+
+
+.menu__list .menu__list {
+  margin-left: 1.2rem !important;
+  padding-left: .2rem !important;
+  border-left: 1px solid var(--ifm-toc-border-color);
+}
+
+.menu__list .menu__list .menu__list {
+  border-color: #ececec;
+}
+
+.menu__link {
+  line-height: 1.4rem;
+}
+
+.menu {
+  padding-top: 5rem;
+}
+
