@@ -9,8 +9,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
-import * as env from 'lib0/environment'
-
 import { basicSetup, EditorView } from 'codemirror'
 import { javascript } from '@codemirror/lang-javascript'
 import { parse } from 'acorn'

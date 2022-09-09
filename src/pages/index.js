@@ -29,7 +29,7 @@ export default function Home () {
       description='Description will go into a meta tag in <head />'
     >
       <YContext.Provider room='home'>
-        <section style={{ position: 'relative' }}>
+        <section style={{ position: 'relative', width: '100vw' }}>
           <YContext.YStateConsumer>
             {(ystate) => (
               <DemoIntro awareness={/** @type {any} */ (ystate).awareness} />
