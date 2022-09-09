@@ -4,6 +4,7 @@ import React from 'react'
 import MDXComponents from '@theme-original/MDXComponents'
 import SocialLink from '../components/SocialLink'
 import LiveCode from '../components/LiveCode'
+import { ListCategoryItems } from '@site/src/components/ListCategoryItems'
 
 export default {
   // Re-use the default mapping
@@ -11,5 +12,6 @@ export default {
   // Map the "highlight" tag to our <Highlight /> component!
   // `Highlight` will receive all props that were passed to `highlight` in MDX
   SocialLink,
-  LiveCode
+  LiveCode,
+  ListCategoryItems
 }

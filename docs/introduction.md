@@ -6,8 +6,6 @@ description: >-
 sidebar_position: 1
 ---
 
-import { ListCategoryItems } from '@site/src/components/ListCategoryItems'
-
 Yjs is a high-performance
 [CRDT](https://en.wikipedia.org/wiki/Conflict-free\_replicated\_data\_type) for
 building collaborative applications that sync automatically.
@@ -24,28 +22,54 @@ This is a working example of how shared types automatically sync. We also have a
 documentation, and lots of [live demos with source
 code](https://github.com/yjs/yjs-demos).
 
-```javascript
-import * as Y from 'yjs'
+```javascript live
+// import * as Y from 'yjs'
 
-// Yjs documents are collections of
-// shared objects that sync automatically.
+/*
+ * Yjs documents are collections of shared types.
+ */
 const ydoc = new Y.Doc()
-// Define a shared Y.Map instance
-const ymap = ydoc.getMap()
+
+/*
+ * Define a shared Y.Map type on the Yjs document.
+ */
+const ymap = ydoc.getMap('my map')
+
+/*
+ * Observers are triggered when the shared type changes (local and remote
+ * changes). The event object describes the changes
+ */
+ymap.observe(event => {
+  event.changes.keys.get('keyA')
+})
+
+/*
+ * A Y.Map type works similarly to a normal Map type.
+ */
 ymap.set('keyA', 'valueA')
 
-// Create another Yjs document (simulating a remote user)
-// and create some conflicting changes
+/*
+ * Define another Yjs document that we also manipulate.
+ */
 const ydocRemote = new Y.Doc()
-const ymapRemote = ydocRemote.getMap()
-ymapRemote.set('keyB', 'valueB')
+const ymapRemote = ydocRemote.getMap('my map')
+ymapRemote.set('keyB', 'my map')
 
-// Merge changes from remote
-const update = Y.encodeStateAsUpdate(ydocRemote)
-Y.applyUpdate(ydoc, update)
+/*
+ * Sync changes to the remote ydoc.
+ * Providers are extensions that do this automatically for you.
+ */
+const update = Y.encodeStateAsUpdate(ydoc)
+Y.applyUpdate(ydocRemote, update)
 
-// Observe that the changes have merged
-console.log(ymap.toJSON()) // => { keyA: 'valueA', keyB: 'valueB' }
+/*
+ * The changes from the original ydoc are now synced to our remoteYdoc.
+ *
+ * Unlike Git repositories, Yjs documents resolve potential conflicts
+ * automatically without merge-conflicts.
+ */
+ymapRemote.toJSON()
+
 ```
 
 ## Editor Support
@@ -92,12 +116,5 @@ providers that store document updates in a database.
 
 Yjs is the fastest CRDT implementation, by far.
 
-<SocialLink image="https://github.com/fluidicon.png" href="https://github.com/dmonad/crdt-benchmarks" title="dmonad/crdt-benchmarks" description="A collection of CRDT benchmarks. uiaedtrn udiaendr uiadertn udiaren duirtane dutrinae dutrinae dturinae dtruniae drnuidae nduiane dn" />
-
 [crdt-benchmarks](https://github.com/dmonad/crdt-benchmarks)
-
-[crdt-benchmarks](https://github.com/dmonad/crdt-benchmarks)
-
-[crdt-benchmarks](https://github.com/dmonad/crdt-benchmarks)
-
 

@@ -14,11 +14,15 @@ import { javascript } from '@codemirror/lang-javascript'
 import { parse } from 'acorn'
 import { simple } from 'acorn-walk'
 
-import { EditorState } from '@codemirror/state'
+import { Compartment, EditorState } from '@codemirror/state'
 import { Decoration, ViewPlugin, WidgetType } from '@codemirror/view'
 import * as dom from 'lib0/dom'
 import * as pair from 'lib0/pair'
 import evalCode from './eval.js'
+import { githubDark, githubLight } from '@uiw/codemirror-theme-github'
+import { useColorMode } from '@docusaurus/theme-common'
+
+const theme = new Compartment()
 
 export default ({ code }) => {
   const ref = useRef(null)
@@ -28,6 +32,8 @@ export default ({ code }) => {
   const [editorView, setEditor] = useState(
     /** @type {EditorView | null} */ (null)
   )
+  const { colorMode } = useColorMode()
+
   useEffect(() => {
     const state = EditorState.create({
       doc: code,
@@ -35,8 +41,8 @@ export default ({ code }) => {
         basicSetup,
         javascript(),
         // EditorView.lineWrapping,
-        liveCodePlugin(setErrorMessage)
-        // oneDark
+        liveCodePlugin(setErrorMessage),
+        theme.of(colorMode === 'dark' ? githubDark : githubLight)
       ]
     })
     const view = new EditorView({
@@ -48,6 +54,16 @@ export default ({ code }) => {
       view.destroy()
     }
   }, [ref])
+
+  useEffect(() => {
+    if (editorView) {
+      editorView.dispatch({
+        effects: theme.reconfigure(
+          colorMode === 'dark' ? githubDark : githubLight
+        )
+      })
+    }
+  }, [colorMode])
 
   const resetState = () => {
     if (editorView) {

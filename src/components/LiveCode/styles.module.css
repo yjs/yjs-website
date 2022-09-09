@@ -19,8 +19,8 @@
 .header {
   display: flex;
   /* background-color: #f6f8fa; */
-  background: var(--ifm-color-emphasis-600);
-  color: var(--ifm-color-content-inverse);
+  background: var(--ifm-color-emphasis-200);
+  /* color: var(--ifm-color-content-inverse); */
   font-size: var(--ifm-code-font-size);
   font-weight: 700;
   letter-spacing: .08rem;

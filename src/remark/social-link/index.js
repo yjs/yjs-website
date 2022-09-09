@@ -49,7 +49,10 @@ const plugin = (_options) => {
      */
     const options = []
     visit(ast, 'link', (node, _index, parent) => {
-      if (parent == null || parent.children.length === 1) {
+      if (
+        parent == null ||
+        (parent.type === 'paragraph' && parent.children.length === 1)
+      ) {
         options.push({ node, overwrite: parent || node })
       }
     })

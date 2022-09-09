@@ -9,7 +9,7 @@
   bottom: -20px;
   width: var(--userlist-width);
   overflow-wrap: break-word;
-  font-size: 1.7rem;
+  font-size: .8rem;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
