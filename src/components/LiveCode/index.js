@@ -9,11 +9,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.css'
 import clsx from 'clsx'
-import { basicSetup, EditorView } from 'codemirror'
-import { javascript } from '@codemirror/lang-javascript'
 import { parse } from 'acorn'
 import { simple } from 'acorn-walk'
 
+import { basicSetup, EditorView } from 'codemirror'
+import { javascript } from '@codemirror/lang-javascript'
 import { Compartment, EditorState } from '@codemirror/state'
 import { Decoration, ViewPlugin, WidgetType } from '@codemirror/view'
 import * as dom from 'lib0/dom'
@@ -49,6 +49,12 @@ export default ({ code }) => {
       state,
       parent: /** @type {any} */ (ref.current)
     })
+    // disable grammarly
+    const cmContent = /** @type {any} */ (ref).current.querySelector('.cm-content')
+    cmContent.setAttribute('spellcheck', 'false')
+    cmContent.setAttribute('data-gramm', 'false')
+    cmContent.setAttribute('data-gramm_editor', 'false')
+    cmContent.setAttribute('data-enable-grammarly', 'false')
     setEditor(view)
     return () => {
       view.destroy()

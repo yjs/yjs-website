@@ -100,7 +100,6 @@ const customStringify = (val) => {
   return JSON.stringify(val)
 }
 
-
 /**
  * Syncs in the Live Code Editor will alwyas differ from run to run. This makes
  * execution deterministic by enforcing an increasing clientID.

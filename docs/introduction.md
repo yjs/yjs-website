@@ -66,7 +66,7 @@ Y.applyUpdate(ydocRemote, update)
  * The changes from the original ydoc are now synced to our remoteYdoc.
  *
  * Unlike Git repositories, Yjs documents resolve potential conflicts
- * automatically without merge-conflicts.
+ * automatically without merge conflicts.
  */
 ymapRemote.toJSON()
 

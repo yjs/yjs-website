@@ -10,9 +10,9 @@ const liveCode = require('./src/remark/live-code')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Yjs',
+  title: 'Yjs Docs',
   tagline: 'Build local-first collaborative software',
-  url: 'https://yjs.dev',
+  url: 'https://beta.yjs.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',

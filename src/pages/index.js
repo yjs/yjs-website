@@ -4,7 +4,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import HomepageFeatures from '../components/HomepageFeatures'
 import DemoIntro from '../components/DemoIntro'
-import EditorCodemirror from '../components/EditorCodemirror'
+import CodemirrorComponent from '../components/Codemirror'
 import * as YContext from '../components/YContext'
 
 import styles from './index.module.css'
@@ -25,7 +25,7 @@ export default function Home () {
   const { siteConfig } = useDocusaurusContext()
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.title}`}
       description='Description will go into a meta tag in <head />'
     >
       <YContext.Provider room='home'>
@@ -37,29 +37,33 @@ export default function Home () {
           </YContext.YStateConsumer>
           <AwarenessUserList />
         </section>
+        <HomepageHeader />
+        <main>
+          <HomepageFeatures />
+          <section>
+            <div
+              className={clsx(
+                'card',
+                'container',
+                'padding--md',
+                'margin-vert--lg',
+                styles.Cm6Demo
+              )}
+            >
+              <div className={clsx('card__header')}>
+                <h3>CodeMirror editor demo</h3>
+              </div>
+              <div className={clsx('card__body')} style={{ height: '35vh' }}>
+                <YContext.YStateConsumer>
+                  {(ystate) => (
+                    ystate && <CodemirrorComponent ytext={ystate.ydoc.getText('example')} awareness={ystate.awareness} />
+                  )}
+                </YContext.YStateConsumer>
+              </div>
+            </div>
+          </section>
+        </main>
       </YContext.Provider>
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-        <section>
-          <div
-            className={clsx(
-              'card',
-              'container',
-              'padding--md',
-              'margin-vert--lg',
-              styles.Cm6Demo
-            )}
-          >
-            <div className={clsx('card__header')}>
-              <h3>CodeMirror editor demo</h3>
-            </div>
-            <div className={clsx('card__body')}>
-              <EditorCodemirror height='35vh' />
-            </div>
-          </div>
-        </section>
-      </main>
     </Layout>
   )
 }
