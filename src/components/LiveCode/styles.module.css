@@ -41,3 +41,11 @@
   border-top-right-radius: unset;
   font-weight: bold;
 }
+
+.executionResult {
+  color: #db6700;
+  user-select: none;
+  font-style: italic;
+  pointer-events: none;
+}
+

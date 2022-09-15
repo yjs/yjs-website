@@ -120,8 +120,7 @@ class ExpressionAnnotation extends WidgetType {
   toDOM () {
     if (this.type === 'eval') {
       return /** @type {HTMLElement} */ (dom.element('span', [
-        pair.create('class', 'executionResult'),
-        pair.create('style', 'color:grey;user-select:none;')
+        pair.create('class', styles.executionResult),
       ], [dom.text(` => ${this.result}`)]))
     } else {
       return /** @type {HTMLElement} */ (dom.element('span', [
