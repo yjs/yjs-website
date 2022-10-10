@@ -10,7 +10,7 @@ const FeatureList = [
       <>
         Yjs implements a highly optimized CRDT that syncs{' '}
         <strong>shared data types</strong>{' '}
-        automatically with outher peers without merge conflicts.
+        automatically with other peers without merge conflicts.
       </>
     )
   },

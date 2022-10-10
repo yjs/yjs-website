@@ -28,7 +28,9 @@ projects out there. Yjs supports many of them using extensions. Editor bindings
 are a concept in Yjs that allow us to bind the state of a third-party editor to
 a syncable Yjs document. This is a list of all known editor bindings:
 
-{% page-ref page="../ecosystem/editor-bindings/" %}
+<!-- @TODO add Social card for internal docs -->
+[Editor Bindings](../ecosystem/editor-bindings/)
+
 
 For the purpose of this guide, we are going to use the
 [Quill](https://quilljs.com/) editor - a great rich-text editor that is easy to
@@ -38,8 +40,15 @@ introduction in npm and bundles, please refer to the [webpack getting started
 guide](https://webpack.js.org/guides/getting-started/) and additionally setting
 up a [development server](https://webpack.js.org/configuration/dev-server/).
 
-{% tabs %}
-{% tab title="JavaScript" %}
+```bash
+npm i quill quill-cursors
+```
+
+```markup
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<div id="editor" />
+```
+
 ```javascript
 import Quill from 'quill'
 import QuillCursors from 'quill-cursors'
@@ -65,22 +74,6 @@ const quill = new Quill(document.querySelector('#editor'), {
   theme: 'snow' // 'bubble' is also great
 })
 ```
-{% endtab %}
-
-{% tab title="HTML" %}
-```markup
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
-<div id="editor" />
-```
-{% endtab %}
-
-{% tab title="Install" %}
-```bash
-npm i quill quill-cursors
-```
-{% endtab %}
-{% endtabs %}
 
 Next, we are going to install Yjs and the
 [y-quill](../ecosystem/editor-bindings/quill.md) editor binding.
@@ -116,26 +109,23 @@ choose a **provider** or [implement our own communication
 protocol](../tutorials/creating-a-custom-provider.md) to exchange document
 updates with other peers.
 
-{% page-ref page="../ecosystem/connection-provider/" %}
+[Connection Provider](../ecosystem/connection-provider/)
 
-Each provider has pros and cons. The[
-y-webrtc](https://github.com/yjs/y-webrtc) provider connects
-clients directly with each other and is a perfect choice for demo applications
-because it doesn't require you to set up a server. But for a real-world
-application, you often want to sync the document to a server. In any case, we
-got you covered. It is easy to change the provider because they all implement
-the same interface.
+Each provider has pros and cons. The [y-webrtc](https://github.com/yjs/y-webrtc)
+provider connects clients directly with each other and is a perfect choice for
+demo applications because it doesn't require you to set up a server. But for a
+real-world application, you often want to sync the document to a server. In any
+case, we got you covered. It is easy to change the provider because they all
+implement the same interface.
 
-{% tabs %}
-{% tab title="y-webrtc" %}
 ```javascript
 import { WebrtcProvider } from 'y-webrtc'
 
 const provider = new WebrtcProvider('quill-demo-room', ydoc)
 ```
-{% endtab %}
 
-{% tab title="y-websocket." %}
+alternatively..
+
 ```javascript
 import { WebsocketProvider } from 'y-websocket'
 
@@ -144,26 +134,11 @@ const provider = new WebsocketProvider(
   'wss://demos.yjs.dev', 'quill-demo-room', ydoc
 )
 ```
-{% endtab %}
 
-{% tab title="y-dat" %}
-```javascript
-import { DatProvider } from 'y-dat'
-
-// set null in order to create a fresh
-const datKey = '7b0d584fcdaf1de2e8c473393a31f52327793931e03b330f7393025146dc02fb'
-const provider = new DatProvider(datKey, ydoc)
-```
-{% endtab %}
-
-{% tab title="Installation" %}
 ```bash
 npm i y-webrtc # or
-npm i y-websocket # or
-npm i y-dat
+npm i y-websocket
 ```
-{% endtab %}
-{% endtabs %}
 
 Providers work similarly to editor bindings. They sync Yjs documents through a
 communication protocol or a database. Most providers have in common that they
@@ -186,6 +161,8 @@ concepts like awareness, shared types, and offline editing.
 But for now, let's enjoy what we built. I included the same fiddle twice so you
 can observe the editors sync in real-time. Aware, the editor content is synced
 with all users visiting this page!
+
+<!-- @TODO support embedding stackblitz elements -->
 
 {% embed
 url="https://stackblitz.com/edit/y-quill?embed=1&file=index.ts&hideExplorer=1"

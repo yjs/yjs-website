@@ -10,37 +10,13 @@
   font-size: 2rem;
   position: absolute;
   top: 3rem;
-  left: 0;
-}
-
-
-@media (max-aspect-ratio: 1/1), (orientation: portrait), (max-width: 1024px) {
-  .namePicker {
-    top: calc(50% - 15rem);
-    left: 2rem;
-    right: 2rem;
-  }
-}
-
-@media (max-width: 440px) and (min-height: 600px) {
-  .namePicker {
-    top: calc(50% - 18rem);
-    left: 1rem;
-  }
-}
-
-@media (min-aspect-ratio: 1/1) and (orientation: landscape) and (max-width: 1024px) {
-  .namePicker {
-    top: 50%;
-    left: 1rem;
-    background-color: #ffffff33;
-  }
+  left: 2rem;
 }
 
 .namePicker input {
   background-color: #fff0;
-  font-size: 2rem;
-  padding-left: .2rem;
+  font-size: 1.5rem;
+  padding-left: .3rem;
   border: none;
   border-bottom: .1rem solid var(--user-color);
   outline: none;
@@ -68,4 +44,5 @@
   background-color: var(--user-color);
   border-radius: 50%;
   display: inline-block;
+  margin-left: .3rem;
 }
