@@ -87,8 +87,8 @@ doc.transact(() => {
   ytext.insert(0, 'abc')
 }, 41)
 undoManager.undo()
-ytext.toString() // => '' (not tracked because 41 is not an instance of
-                 //        `trackedTransactionorigins`)
+ytext.toString() // => 'abc' (not tracked because 41 is not an instance of
+                 //           `trackedTransactionorigins`)
 ytext.delete(0, 3) // revert change
 
 doc.transact(() => {
