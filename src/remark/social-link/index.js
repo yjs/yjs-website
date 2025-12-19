@@ -73,6 +73,7 @@ const plugin = (_options) => {
           }" description="${description}" />`
       } catch {
         console.error(`Issues catching social description of ${node.url}`)
+        return Promise.resolve()
       }
     }))
   }
